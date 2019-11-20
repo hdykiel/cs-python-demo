@@ -6,7 +6,7 @@ output: html_document
 ---
 
 ```{r setup, include=FALSE}
-
+ 
 # load reticulate
 library(reticulate)
 # Q: is reticulate automatically loaded already?
