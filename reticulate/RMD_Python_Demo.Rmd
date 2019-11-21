@@ -5,25 +5,38 @@ date: "11/20/2019"
 output: html_document
 ---
 
-```{r setup, include=FALSE}
+First, we customize our python session:
+
+```{r python-setup, include=FALSE}
 
 # load reticulate
 library(reticulate)
 # Q: is reticulate automatically loaded already?
 
-# OPTIONAL: set up a virtual environment to manage your python packages
-# check if virtual environments exist
+#########################################################################
+# OPTIONAL: set up a virtual environment to manage your python packages #
+#########################################################################
+
+# check what virtual environments already exist
 virtualenv_list()
 
-# by default, your python session will use system python. Or you can indicate which virtual environment to use for this project:
+# by default, your python session will use system python. Here we indicate which virtual environment to use for this project
 use_virtualenv("my-virtual-environment")
 
 # install python packages
-virtualenv_install(envname = "my-virtual-environment", packages = "pandas")	
+# virtualenv_install(envname = "my-virtual-environment", packages = "pandas")	
+
+# check which version of python you are using
+py_config()
+
+# specify which python version to use
+use_python("/usr/bin/python3")
+#Q: how do I interpret the output of py_config? It's not clear which version of python I am using
+
 
 ```
 
-R code
+In addition to R, RStudio can be used to execute other code such as SQL, Bash, and Python.
 ```{r r-data}
 # load data
 df <- mtcars # save to R object
@@ -31,7 +44,28 @@ df <- mtcars # save to R object
 
 Access R objects from python
 ```{python py-data}
-my_python_object = r.df
+# check object type
+type(r.df)
+# ^ why does reticulate convert it to a dictionary data type?
+
+# print r.df
+print(r.df)
+
+# select mpg only
+print(r.df.get("mpg"))
+print(r.df["mpg"])
+# ^^ why is this not working? See https://www.datacamp.com/community/tutorials/python-dictionary-tutorial
+
+# subset dictionary
+# example: https://python-decompiler.com/article/2011-03/extract-subset-of-key-value-pairs-from-python-dictionary-object
+
+
+# print second row
+print(r.df[1,:])
+# ^^ why does this print the whole dictionary?
+
+
+
 
 ```
 
@@ -47,3 +81,19 @@ cars = r.df
 cars = cars[cars['mpg'] <= 20]
 print(cars.head())
 ```
+
+## Q&A 
+
+_How can I check with version of Python I am using?_ 
+
+_How can I confirm if I have a Python session running in parallel to my R session?_ 
+
+_Do I need to use virtual environments?_ 
+No. Although setting up virtual environments is recommended for reproducibility and avoiding breaking changes, reticulate will use the system python installation and packages by default.
+
+_If using system python, how can I install new Python packages not previously installed by the server admin?_
+
+_How do I check which Python packages are installed in my virtual environment_?
+Use the command `pip freeze`
+
+_How can I execute Python code line by line from RMD without getting KeyError?_
