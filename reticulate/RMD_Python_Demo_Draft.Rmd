@@ -69,12 +69,12 @@ Access python objects from R
 py$my_python_object
 ```
 
-Access R objects from python.
-```{python py-data}
-import pandas
-cars = r.df
-cars = cars[cars['mpg'] <= 20]
-print(cars.head())
+Plot in python
+```{python python-plot}
+import matplotlib as mpl
+mpl.scatter(my_python_object.mpg, my_python_object.hp)
+mpl.show()
+
 ```
 
 ## Q&A 

@@ -44,11 +44,11 @@ print(my_python_object.head())
 ```
 
 
-
 Access python objects from R
 ```{r}
 py$my_python_object
 ```
+
 
 
 
