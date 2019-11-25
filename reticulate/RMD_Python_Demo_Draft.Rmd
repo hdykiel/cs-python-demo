@@ -29,7 +29,6 @@ use_virtualenv("my-virtual-environment")
 # check which version of python you are using
 py_config()
 
-
 # specify which python version to use
 use_python("/usr/bin/python3") # option 1
 Sys.setenv(RETICULATE_PYTHON="/opt/python/3.6.7/bin/python3") # option 2
@@ -69,12 +68,12 @@ Access python objects from R
 py$my_python_object
 ```
 
-Access R objects from python.
-```{python py-data}
-import pandas
-cars = r.df
-cars = cars[cars['mpg'] <= 20]
-print(cars.head())
+Plot in python
+```{python python-plot}
+import matplotlib as mpl
+mpl.scatter(my_python_object.mpg, my_python_object.hp)
+mpl.show()
+
 ```
 
 ## Q&A 
