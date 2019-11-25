@@ -5,7 +5,6 @@ date: "11/20/2019"
 output: html_document
 ---
 
-<<<<<<< HEAD
 First, we customize our python session:
 
 ```{r python-setup, include=FALSE}
@@ -13,10 +12,6 @@ First, we customize our python session:
 # specify which python version to use
 Sys.setenv(RETICULATE_PYTHON="/opt/python/3.6.7/bin/python3") # you will need to restart R for this to take effect
 
-=======
-```{r setup, include=FALSE}
- 
->>>>>>> f44348a58cc522f17e2bf01c2ff9fcad4b3d66b7
 # load reticulate
 library(reticulate)
 
@@ -31,7 +26,6 @@ use_virtualenv("my-virtual-environment")
 
 # check which version of python you are using
 py_config()
-
 
 ```
 
