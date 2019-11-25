@@ -9,11 +9,13 @@ First, we customize our python session:
 
 ```{r python-setup, include=FALSE}
 
-# specify which python version to use
-Sys.setenv(RETICULATE_PYTHON="/opt/python/3.6.7/bin/python3") # you will need to restart R for this to take effect
-
 # load reticulate
 library(reticulate)
+# Q: is reticulate automatically loaded already?
+
+#########################################################################
+# OPTIONAL: set up a virtual environment to manage your python packages #
+#########################################################################
 
 # check what virtual environments already exist
 virtualenv_list()
@@ -28,6 +30,13 @@ use_virtualenv("my-virtual-environment")
 py_config()
 
 
+# specify which python version to use
+use_python("/usr/bin/python3") # option 1
+Sys.setenv(RETICULATE_PYTHON="/opt/python/3.6.7/bin/python3") # option 2
+
+
+
+
 ```
 
 In addition to R, RStudio can be used to execute other code such as SQL, Bash, and Python.
@@ -36,28 +45,44 @@ In addition to R, RStudio can be used to execute other code such as SQL, Bash, a
 df <- mtcars # save to R object
 ```
 
-Access R objects from python:
+Access R objects from python
 
 ```{python}
 import pandas
 my_python_object = r.df[r.df['mpg'] > 20]
-print(my_python_object.head())
+print(my_python_object)
 ```
 
 
+
+```{python py-data}
+# check object type
+type(r.df)
+type(my_python_object)
+
+# print r.df
+print(r.df)
+```
 
 Access python objects from R
 ```{r}
 py$my_python_object
 ```
 
-
+Access R objects from python.
+```{python py-data}
+import pandas
+cars = r.df
+cars = cars[cars['mpg'] <= 20]
+print(cars.head())
+```
 
 ## Q&A 
 
 _How can I check with version of Python I am using?_ 
-
 Run the command `reticulate::py_config()`
+
+_How do I interpret the output of py_config?_
 
 _How can I confirm if I have a Python session running in parallel to my R session?_ 
 
@@ -70,3 +95,4 @@ _How do I check which Python packages are installed in my virtual environment_?
 Use the command `pip freeze`
 
 _How can I execute Python code line by line from RMD without getting KeyError?_
+You should be able to. It's possible there was a problem with your python session which is causing the error. Run `reticulate::py_config()` and review the output.
