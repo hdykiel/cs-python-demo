@@ -10,7 +10,7 @@ First, we customize our python session:
 ```{r python-setup, include=FALSE}
 
 # specify which python version to use
-Sys.setenv(RETICULATE_PYTHON="/opt/python/3.6.7/bin/python3") # you will need to restart R for this to take effect
+# Sys.setenv(RETICULATE_PYTHON="/opt/python/3.6.7/bin/python3") # you will need to restart R for this to take effect
 
 # load reticulate
 library(reticulate)
@@ -37,16 +37,25 @@ df <- mtcars # save to R object
 
 Access R objects from python:
 
-```{python}
+```{python py-filter}
 import pandas
 my_python_object = r.df[r.df['mpg'] > 20]
 print(my_python_object.head())
 ```
 
+Print Python output, including graphical output from matplotlib:
 
-Access python objects from R
+```{python matplotlib}
+import matplotlib.pyplot as plt
+my_python_object.plot.scatter(x='mpg', y = 'hp')
+plt.show()
+```
+
+
+Access python objects from R:
 ```{r}
-py$my_python_object
+library(tidyverse)
+py$my_python_object %>% ggplot(aes(mpg, hp)) + geom_point() 
 ```
 
 
@@ -58,14 +67,13 @@ _How can I check with version of Python I am using?_
 
 Run the command `reticulate::py_config()`
 
-_How can I confirm if I have a Python session running in parallel to my R session?_ 
 
 _Do I need to use virtual environments?_ 
+
 No. Although setting up virtual environments is recommended for reproducibility and avoiding breaking changes, reticulate will use the system python installation and packages by default.
 
-_If using system python, how can I install new Python packages not previously installed by the server admin?_
 
 _How do I check which Python packages are installed in my virtual environment_?
+
 Use the command `pip freeze`
 
-_How can I execute Python code line by line from RMD without getting KeyError?_
