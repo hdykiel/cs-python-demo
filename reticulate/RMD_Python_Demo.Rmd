@@ -9,11 +9,12 @@ First, we customize our python session:
 
 ```{r python-setup, include=FALSE}
 
-# specify which python version to use
-# Sys.setenv(RETICULATE_PYTHON="/opt/python/3.6.7/bin/python3") # you will need to restart R for this to take effect
 
 # load reticulate
 library(reticulate)
+
+# check which version of python you are using
+py_config()
 
 # check what virtual environments already exist
 virtualenv_list()
@@ -24,8 +25,7 @@ use_virtualenv("my-virtual-environment")
 # install python packages
 # virtualenv_install(envname = "my-virtual-environment", packages = "pandas")	
 
-# check which version of python you are using
-py_config()
+
 
 ```
 

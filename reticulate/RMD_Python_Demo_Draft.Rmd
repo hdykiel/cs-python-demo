@@ -95,3 +95,5 @@ Use the command `pip freeze`
 
 _How can I execute Python code line by line from RMD without getting KeyError?_
 You should be able to. It's possible there was a problem with your python session which is causing the error. Run `reticulate::py_config()` and review the output.
+
+_Can the sys admin set the default version of Python to the correct version?_
