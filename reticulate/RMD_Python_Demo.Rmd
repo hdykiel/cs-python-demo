@@ -8,8 +8,6 @@ output: html_document
 First, we customize our python session:
 
 ```{r python-setup, include=FALSE}
-
-
 # load reticulate
 library(reticulate)
 
@@ -25,7 +23,9 @@ use_virtualenv("my-virtual-environment")
 # install python packages
 # virtualenv_install(envname = "my-virtual-environment", packages = "pandas")	
 
-
+# set backend to  Agg (see https://community.rstudio.com/t/matplotlib-inline-plots-with-reticulate-on-rstudio-server/16357)
+matplotlib <- import("matplotlib", convert = TRUE)
+matplotlib$use("Agg")
 
 ```
 

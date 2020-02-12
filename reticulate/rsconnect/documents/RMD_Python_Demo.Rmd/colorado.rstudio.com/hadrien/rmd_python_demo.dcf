@@ -1,0 +1,12 @@
+name: rmd_python_demo
+title: RMD_Python_Demo
+username: hadrien
+account: hadrien
+server: colorado.rstudio.com
+hostUrl: https://colorado.rstudio.com/rsc/__api__
+appId: 4074
+bundleId: 33149
+url: https://colorado.rstudio.com/rsc/content/4074/
+when: 1578580576.30003
+asMultiple: FALSE
+asStatic: FALSE
