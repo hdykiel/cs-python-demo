@@ -5,6 +5,9 @@ library(reticulate)
 # source python function(s)
 source_python("python_function.py")
 
+# source python pandas dataframe(s)
+source_python("pandas_df.py")
+
 # Define UI for application that draws a histogram
 ui <- fluidPage(
 
@@ -23,9 +26,16 @@ ui <- fluidPage(
 
         # Show a plot of the generated distribution, matplotlib, and test output
         mainPanel(
-           plotOutput("distPlot"),
-           imageOutput("matplotlib"),
-           textOutput("pythonText")
+           column(
+               width = 6,
+               fluidRow(plotOutput("distPlot")),
+               fluidRow(imageOutput("matplotlib"), width = 6)
+           ),
+           column(
+               width = 6,
+               fluidRow(textOutput("pythonText")),
+               fluidRow(tableOutput("dataframe"))
+           )
         )
     )
 )
@@ -53,6 +63,12 @@ server <- function(input, output) {
     output$pythonText <- renderText({
         testMethod(input$bins)
     })
+    
+    # Pandas dataframe
+    output$dataframe <- renderTable({
+        df
+    })
+   
 }
 
 # Run the application 
